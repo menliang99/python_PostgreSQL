@@ -2,7 +2,7 @@
 from user import User
 from database import Database
 
-Database.initialise()
+Database.initialise(database="learning", user="postgres", password="menliang99", host="localhost")
 
 user2 = User('deer@rsmith.com', 'Genty', 'Smith', None)
 user2.save_to_db()

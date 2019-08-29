@@ -4,26 +4,25 @@ from psycopg2 import pool
 
 class Database:
 
-    connection_pool = None    #this is static, shared by all the objects.
+    __connection_pool = None    #this is static, shared by all the objects, "__" makes the variable private.
 
     @staticmethod
-    def initialise():
-        Database.connection_pool = pool.SimpleConnectionPool(1,
-                                            1,
-                                            database="learning", user='postgres', password='menliang99',
-                                            host='localhost')
+    def initialise(**kwargs):
+        Database.__connection_pool = pool.SimpleConnectionPool(1,
+                                                               1,
+                                                               **kwargs)
 
     @classmethod
     def get_connection(cls):
-        return cls.connection_pool.getconn()
+        return cls.__connection_pool.getconn()
 
     @classmethod
     def return_connection(cls, connection):
-        cls.connection_pool.putconn(connection)
+        cls.__connection_pool.putconn(connection)
 
     @classmethod
     def close_all_connections(cls):
-        cls.connection_pool.closeall()
+        cls.__connection_pool.closeall()
 
 
 class CursorFromConnectionFromPool:
