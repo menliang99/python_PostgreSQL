@@ -1,7 +1,10 @@
 
 from user import User
+from database import Database
 
-user2 = User('roedl@rsmith.com', 'Rolf', 'Smith', None)
+Database.initialise()
+
+user2 = User('deer@rsmith.com', 'Genty', 'Smith', None)
 user2.save_to_db()
 
 user_from_db = User.load_from_db_by_email('menliang99@gmail.com')
